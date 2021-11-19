@@ -1,8 +1,12 @@
 package com.dndhackathon.healthy_honey_tving.domain.post.service;
 
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
-import org.springframework.stereotype.Service;
+import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
 
 public interface PostService {
-    void addPost(AddPostRequestDto requestDto);
+    long addPost(AddPostRequestDto requestDto);
+
+    PostDto getPost(Long postUID);
+
+    void removePost(Long postUID);
 }
