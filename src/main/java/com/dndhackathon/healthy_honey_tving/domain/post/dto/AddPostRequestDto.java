@@ -27,6 +27,6 @@ public class AddPostRequestDto {
     public @NonNull PostEntity toEntity() {
         return new PostEntity(-1L, title, description, url,
                 childTags.stream().map(s -> new ChildTagEntity(s, parentTag)).toList(),
-                new UserEntity(userUID));
+                userUID);
     }
 }

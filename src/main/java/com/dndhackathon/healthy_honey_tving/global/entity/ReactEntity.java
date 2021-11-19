@@ -19,11 +19,11 @@ public class ReactEntity {
     @Column(name = "relation_uid", nullable = false)
     private Long relationUID;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "user_entity_user_uid")
     private UserEntity userEntity;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     @JoinColumn(name = "post_entity_post_uid")
     private PostEntity postEntity;
 
