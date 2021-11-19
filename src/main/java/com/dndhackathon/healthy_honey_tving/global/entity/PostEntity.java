@@ -35,9 +35,9 @@ public class PostEntity {
 
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "post_tag",
-            joinColumns = @JoinColumn(name = "post_entity_post_uid", referencedColumnName = "post_uid"),
-            inverseJoinColumns = @JoinColumn(name = "child_tag_entities_tag_name", referencedColumnName = "tag_name"))
+    @JoinTable(name = "postTag",
+            joinColumns = @JoinColumn(name = "Post_UID", referencedColumnName = "Post_UID"),
+            inverseJoinColumns = @JoinColumn(name = "Child_tag_name", referencedColumnName = "tag_name"))
     private List<ChildTagEntity> childTagEntities;
 
     @ManyToOne(cascade = CascadeType.ALL, optional = false)
