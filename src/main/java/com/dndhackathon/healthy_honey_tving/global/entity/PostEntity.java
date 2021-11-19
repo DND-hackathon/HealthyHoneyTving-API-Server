@@ -34,15 +34,24 @@ public class PostEntity {
     private String link;
 
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "post_tag",
             joinColumns = @JoinColumn(name = "post_entity_post_uid", referencedColumnName = "post_uid"),
             inverseJoinColumns = @JoinColumn(name = "child_tag_entities_tag_name", referencedColumnName = "tag_name"))
     private List<ChildTagEntity> childTagEntities;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_user_uid", nullable = false)
     private UserEntity author;
+
+    public PostEntity(long postUID, String title, String description, String url, List<ChildTagEntity> childTagEntities, Long userUID) {
+        this.postUID = postUID;
+        this.title = title;
+        this.description = description;
+        this.link = url;
+        this.childTagEntities = childTagEntities;
+        this.author = new UserEntity(userUID);
+    }
 
     public PostDto toDto() {
         return new PostDto(postUID,
