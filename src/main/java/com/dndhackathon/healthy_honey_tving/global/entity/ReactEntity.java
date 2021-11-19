@@ -1,17 +1,34 @@
 package com.dndhackathon.healthy_honey_tving.global.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
+
+@Table(name = "react")
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class ReactEntity {
-    private Long relation_uid;
-    private Long user_uid;
-    private Long post_uid;
-    private enum type{
-        good, bad
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "relation_uid", nullable = false)
+    private Long relationUID;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_entity_user_uid")
+    private UserEntity userEntity;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_entity_post_uid")
+    private PostEntity postEntity;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "react", nullable = false)
+    private com.dndhackathon.healthy_honey_tving.global.enum_type.React react;
+
 }
