@@ -3,9 +3,9 @@ server:
   address: 127.0.0.1
 spring:
   datasource:
-    url: 테스트DB링크
-    username: 유저이름
-    password: 비밀번호
+    url: jdbc:mysql://localhost:3306/dnd_2
+    username: root
+    password: sogonsogon0129@
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:

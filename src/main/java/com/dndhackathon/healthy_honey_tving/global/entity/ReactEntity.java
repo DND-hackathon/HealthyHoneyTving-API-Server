@@ -15,7 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class ReactEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "relation_uid", nullable = false)
     private Long relationUID;
 

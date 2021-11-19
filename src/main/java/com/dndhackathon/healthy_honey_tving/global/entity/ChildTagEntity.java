@@ -1,5 +1,6 @@
 package com.dndhackathon.healthy_honey_tving.global.entity;
 
+import com.dndhackathon.healthy_honey_tving.global.dto.ChildTagDto;
 import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,4 +23,8 @@ public class ChildTagEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "parent_tag", nullable = false)
     private ParentTag parentTag;
+
+    public ChildTagDto toDto() {
+        return new ChildTagDto(tagName, parentTag);
+    }
 }
