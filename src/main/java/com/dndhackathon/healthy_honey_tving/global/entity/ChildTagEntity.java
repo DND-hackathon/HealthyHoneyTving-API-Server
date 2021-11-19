@@ -1,15 +1,25 @@
 package com.dndhackathon.healthy_honey_tving.global.entity;
 
+import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
+import javax.persistence.*;
+
+@Table(name = "child_tag")
+@Entity
+@Setter
+@Getter
 @NoArgsConstructor
-@Builder
+@AllArgsConstructor
 public class ChildTagEntity {
-    private String tag_name;
-    private enum paren_tag{
-        health, media
-    }
+    @Id
+    @Column(name = "tag_name", nullable = false)
+    private String tagName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "parent_tag", nullable = false)
+    private ParentTag parentTag;
 }
