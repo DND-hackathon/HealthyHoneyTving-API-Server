@@ -1,13 +1,22 @@
 package com.dndhackathon.healthy_honey_tving.global.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import javax.persistence.*;
 
-@Builder
-@AllArgsConstructor
+@Table(name = "user")
+@Entity
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class UserEntity {
-    private Long user_uid;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "user_uid", nullable = false)
+    private Long userUID;
+
 }

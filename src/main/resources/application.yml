@@ -1,1 +1,12 @@
-
+server:
+  port: 8089
+  address: 127.0.0.1
+spring:
+  datasource:
+    url: 테스트DB링크
+    username: 유저이름
+    password: 비밀번호
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
