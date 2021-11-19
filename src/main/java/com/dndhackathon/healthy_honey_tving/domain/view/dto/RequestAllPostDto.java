@@ -1,6 +1,7 @@
 package com.dndhackathon.healthy_honey_tving.domain.view.dto;
 
 
+import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
 import lombok.*;
 
 @NoArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Getter
 @Setter
 public class RequestAllPostDto {
-    private String parent_tag;
+    private ParentTag parent_tag;
     private int page;
     private int size;
 }
