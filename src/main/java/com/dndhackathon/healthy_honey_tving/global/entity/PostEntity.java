@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +27,11 @@ public class PostEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "link")
-    @URL
     private String link;
 
+    @Column(name = "description")
+    private String description;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "post_tag",
@@ -44,15 +43,6 @@ public class PostEntity {
     @JoinColumn(name = "user_user_uid", nullable = false)
     private UserEntity author;
 
-    public PostEntity(long postUID, String title, String description, String url, List<ChildTagEntity> childTagEntities, Long userUID) {
-        this.postUID = postUID;
-        this.title = title;
-        this.description = description;
-        this.link = url;
-        this.childTagEntities = childTagEntities;
-        this.author = new UserEntity(userUID);
-    }
-
     public PostDto toDto() {
         return new PostDto(postUID,
                 title,
@@ -60,6 +50,13 @@ public class PostEntity {
                 description,
                 author.getUserUID(),
                 childTagEntities.get(0).getParentTag(),
-                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()));
+                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()),
+                createdAt, previewImageUrl);
     }
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @Column(name = "preview_image_url")
+    @URL
+    private String previewImageUrl;
 }

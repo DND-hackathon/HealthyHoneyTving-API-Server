@@ -9,8 +9,6 @@ import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-
 @Service
 @RequiredArgsConstructor
 public class PostServiceImpl implements PostService{
