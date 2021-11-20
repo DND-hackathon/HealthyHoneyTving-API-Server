@@ -33,7 +33,9 @@ public class ReactServiceImpl implements ReactService{
         Optional<UserEntity> user = userRepository.findById(requestDto.getUserUID());
         Optional<PostEntity> post = postRepository.findById(requestDto.getPostUID());
 
-        if(user.isEmpty() || post.isEmpty()) throw new DataNotFoundException("데이터가 존재하지 않습니다! post 나 user 중 하나이상이 존재하지 않습니다!");
+        if(user.isEmpty()) user = Optional.of(userRepository.save(new UserEntity(requestDto.getUserUID())));
+
+        if(post.isEmpty()) throw new DataNotFoundException("데이터가 존재하지 않습니다! post 가 존재하지 않습니다!");
 
         if(reactRepository.existsAllByPostEntityAndUserEntity(post.get(), user.get())) {
             if(reactRepository.existsAllByPostEntityAndUserEntityAndReact(post.get(), user.get(), requestDto.getReact()))
