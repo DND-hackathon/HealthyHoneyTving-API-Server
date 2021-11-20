@@ -4,13 +4,10 @@ import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.ChildTagRepository;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.PostRepository;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.UserRepository;
-import com.dndhackathon.healthy_honey_tving.global.dto.ChildTagDto;
 import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
 import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +20,7 @@ public class PostServiceImpl implements PostService{
     public long addPost(AddPostRequestDto requestDto) {
         PostEntity postEntity = requestDto.toEntity();
         userRepository.save(postEntity.getAuthor());
-        childTagRepository.saveAll(requestDto.getChildTags().stream().map(childTag ->
-                new ChildTagDto(childTag, requestDto.getParentTag())
-                        .toEntity())
-                .toList());
-
+        childTagRepository.saveAll(postEntity.getChildTagEntities());
         return postRepository.save(postEntity).getPostUID(); //포스트 UID 를 반환한다.
     }
 
