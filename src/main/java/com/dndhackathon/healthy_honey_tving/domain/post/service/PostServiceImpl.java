@@ -1,6 +1,7 @@
 package com.dndhackathon.healthy_honey_tving.domain.post.service;
 
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
+import com.dndhackathon.healthy_honey_tving.domain.post.repository.ChildTagRepository;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.PostRepository;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.UserRepository;
 import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
@@ -15,11 +16,13 @@ import java.util.Arrays;
 public class PostServiceImpl implements PostService{
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final ChildTagRepository childTagRepository;
 
     @Override
     public long addPost(AddPostRequestDto requestDto) {
         PostEntity postEntity = requestDto.toEntity();
         userRepository.save(postEntity.getAuthor());
+        childTagRepository.saveAll(postEntity.getChildTagEntities());
         return postRepository.save(postEntity).getPostUID(); //포스트 UID 를 반환한다.
     }
 
