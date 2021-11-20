@@ -15,8 +15,8 @@
                           where react= 'bad'
                             and post_entity_post_uid = post.post_uid) as bad
         from post
-                 join post_tag on post.post_uid = post_tag.post_uid
-                 join child_tag on child_tag.tag_name = post_tag.child_tag_name
+                 join post_tag on post.post_uid = post_tag.post_entity_post_uid
+                 join child_tag on child_tag.tag_name = post_tag.child_tag_entities_tag_name
         where parent_tag = #{parent_tag}
         order by good
     </select>
@@ -32,8 +32,8 @@
                           where react= 'bad'
                             and post_entity_post_uid = post.post_uid) as bad
         from post
-         join post_tag on post.post_uid = post_tag.post_uid
-         join child_tag on child_tag.tag_name = post_tag.child_tag_name
+         join post_tag on post.post_uid = post_tag.post_entity_post_uid
+         join child_tag on child_tag.tag_name = post_tag.child_tag_entities_tag_name
         where child_tag.tag_name = #{child_tag}
         and parent_tag = #{parent_tag}
         order by good
@@ -42,7 +42,7 @@
     <select id="selectTag" parameterType="integer" resultType="string">
         select tag_name as child_tags
         from child_tag
-        join post_tag on post_tag.child_tag_name = child_tag.tag_name
-        where post_uid = #{post_uid}
+        join post_tag on post_tag.child_tag_entities_tag_name = child_tag.tag_name
+        where post_entity_post_uid = #{post_uid}
     </select>
 </mapper>

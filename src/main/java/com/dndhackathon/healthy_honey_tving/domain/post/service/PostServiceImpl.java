@@ -1,6 +1,8 @@
 package com.dndhackathon.healthy_honey_tving.domain.post.service;
 
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
+import com.dndhackathon.healthy_honey_tving.domain.post.repository.ChildTagRepository;
+import com.dndhackathon.healthy_honey_tving.domain.post.repository.UserRepository;
 import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
 import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
 import com.dndhackathon.healthy_honey_tving.global.repository.PostRepository;

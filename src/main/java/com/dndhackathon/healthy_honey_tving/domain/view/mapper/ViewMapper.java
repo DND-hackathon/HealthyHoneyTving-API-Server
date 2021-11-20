@@ -8,8 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface ViewMapper {
-
-    public List<ResponsePostDto> selectGetAllPost(RequestAllPostDto dto);
-    public List<ResponsePostDto> selectGetByTag(RequestPostByTagDto dto);
-    public List<String> selectTag(Integer post_uid);
+    List<ResponsePostDto> selectGetAllPost(RequestAllPostDto dto);
+    List<ResponsePostDto> selectGetByTag(RequestPostByTagDto dto);
+    List<String> selectTag(Integer post_uid);
 }
