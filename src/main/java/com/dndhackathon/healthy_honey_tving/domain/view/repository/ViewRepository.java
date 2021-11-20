@@ -4,6 +4,7 @@ import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.mapper.ViewMapper;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class ViewRepository implements ViewMapper {
 
     ViewMapper mapper;
