@@ -1,6 +1,5 @@
 package com.dndhackathon.healthy_honey_tving.domain.react.service;
 
-import com.dndhackathon.healthy_honey_tving.domain.post.repository.PostRepository;
 import com.dndhackathon.healthy_honey_tving.domain.post.repository.UserRepository;
 import com.dndhackathon.healthy_honey_tving.domain.react.dto.ReactRequestDto;
 import com.dndhackathon.healthy_honey_tving.domain.react.exception.AlreadyReactedException;
@@ -12,6 +11,7 @@ import com.dndhackathon.healthy_honey_tving.global.entity.ReactEntity;
 import com.dndhackathon.healthy_honey_tving.global.entity.UserEntity;
 import com.dndhackathon.healthy_honey_tving.global.enum_type.React;
 import com.dndhackathon.healthy_honey_tving.global.error.ErrorResponse;
+import com.dndhackathon.healthy_honey_tving.global.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

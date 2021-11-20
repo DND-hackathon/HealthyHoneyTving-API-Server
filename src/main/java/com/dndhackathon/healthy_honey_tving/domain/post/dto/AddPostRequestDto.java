@@ -28,7 +28,7 @@ public class AddPostRequestDto {
     private String previewImageUrl;
 
     public @NonNull PostEntity toEntity() {
-        return new PostEntity(-1L, title, description, url,
+        return new PostEntity(-1L, title, url, description,
                 childTags.stream().map(s -> new ChildTagEntity(s, parentTag)).toList(),
                 new UserEntity(userUID), new Date(createdAt), previewImageUrl);
     }

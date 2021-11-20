@@ -43,6 +43,13 @@ public class PostEntity {
     @JoinColumn(name = "user_user_uid", nullable = false)
     private UserEntity author;
 
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @Column(name = "preview_image_url")
+    @URL
+    private String previewImageUrl;
+
     public PostDto toDto() {
         return new PostDto(postUID,
                 title,
@@ -53,10 +60,4 @@ public class PostEntity {
                 childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()),
                 createdAt, previewImageUrl);
     }
-    @Column(name = "created_at", nullable = false)
-    private Date createdAt;
-
-    @Column(name = "preview_image_url")
-    @URL
-    private String previewImageUrl;
 }
