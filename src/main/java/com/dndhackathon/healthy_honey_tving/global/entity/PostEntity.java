@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,13 +27,11 @@ public class PostEntity {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "description")
-    private String description;
-
     @Column(name = "link")
-    @URL
     private String link;
 
+    @Column(name = "description")
+    private String description;
 
     @ManyToMany(cascade = {CascadeType.PERSIST})
     @JoinTable(name = "post_tag",
@@ -62,4 +61,10 @@ public class PostEntity {
                 childTagEntities.get(0).getParentTag(),
                 childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()));
     }
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @Column(name = "preview_image_url")
+    @URL
+    private String previewImageUrl;
 }
