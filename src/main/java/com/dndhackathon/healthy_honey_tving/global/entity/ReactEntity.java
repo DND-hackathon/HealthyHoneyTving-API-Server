@@ -27,6 +27,7 @@ public class ReactEntity {
     @JoinColumn(name = "post_entity_post_uid")
     private PostEntity postEntity;
 
+
     @Enumerated(EnumType.STRING)
     @Column(name = "react", nullable = false)
     private com.dndhackathon.healthy_honey_tving.global.enum_type.React react;

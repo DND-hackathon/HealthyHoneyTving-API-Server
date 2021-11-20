@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dndhackathon.healthy_honey_tving.domain.view.mapper.ViewMapper">
+
+    <select id="selectGetAllPost" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto" resultType="hashmap">
+        select distinct post.post_uid  as post_uid, post.link as src, user_user_uid as user_uid, title,
+                        ( select count(react) as good
+                          from react
+                          where react= 'good'
+                            and post_entity_post_uid = post.post_uid) as good,
+                        ( select count(react) as bad
+                          from react
+                          where react= 'bad'
+                            and post_entity_post_uid = post.post_uid) as bad
+        from post
+                 join post_tag on post.post_uid = post_tag.post_uid
+                 join child_tag on child_tag.tag_name = post_tag.child_tag_name
+        where parent_tag = #{parent_tag}
+    </select>
+
+    <select id="selectGetByTag" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto" resultType="hashmap">
+        select distinct post.post_uid  as post_uid, post.link as src, user_user_uid as user_uid, title,
+                        ( select count(react) as good
+                          from react
+                          where react= 'good'
+                            and post_entity_post_uid = post.post_uid) as good,
+                        ( select count(react) as bad
+                          from react
+                          where react= 'bad'
+                            and post_entity_post_uid = post.post_uid) as bad
+        from post
+         join post_tag on post.post_uid = post_tag.post_uid
+         join child_tag on child_tag.tag_name = post_tag.child_tag_name
+        where child_tag.tag_name = #{child_tag}
+        and parent_tag = #{parent_tag}
+    </select>
+
+    <select id="selectTag" parameterType="integer" resultType="string">
+        select tag_name as child_tags
+        from child_tag
+        join post_tag on post_tag.child_tag_name = child_tag.tag_name
+        where post_uid = #{post_uid}
+    </select>
+</mapper>

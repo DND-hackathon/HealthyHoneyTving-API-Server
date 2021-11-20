@@ -1,7 +1,7 @@
 package com.dndhackathon.healthy_honey_tving.domain.post.service;
 
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
-import com.dndhackathon.healthy_honey_tving.domain.post.repository.PostRepository;
+import com.dndhackathon.healthy_honey_tving.global.repository.PostRepository;
 import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
 import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
 import lombok.RequiredArgsConstructor;
