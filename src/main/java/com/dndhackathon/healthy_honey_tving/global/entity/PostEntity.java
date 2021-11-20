@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Table(name = "post")
@@ -29,10 +31,18 @@ public class PostEntity {
     @Column(name = "description")
     private String description;
 
+
+
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "post_tag",
             joinColumns = @JoinColumn(name = "post_entity_post_uid", referencedColumnName = "post_uid"),
             inverseJoinColumns = @JoinColumn(name = "child_tag_entities_tag_name", referencedColumnName = "tag_name"))
     private List<ChildTagEntity> childTagEntities;
 
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @Column(name = "preview_image_url")
+    @URL
+    private String previewImageUrl;
 }
