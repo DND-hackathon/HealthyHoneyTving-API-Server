@@ -4,7 +4,7 @@
 
 <mapper namespace="com.dndhackathon.healthy_honey_tving.domain.view.mapper.ViewMapper">
 
-    <select id="selectGetAllPost" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto" resultType="hashmap">
+    <select id="selectGetAllPost" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
         select distinct post.post_uid  as post_uid, post.link as src, user_user_uid as user_uid, title,
                         ( select count(react) as good
                           from react
@@ -18,9 +18,10 @@
                  join post_tag on post.post_uid = post_tag.post_uid
                  join child_tag on child_tag.tag_name = post_tag.child_tag_name
         where parent_tag = #{parent_tag}
+        order by good
     </select>
 
-    <select id="selectGetByTag" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto" resultType="hashmap">
+    <select id="selectGetByTag" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
         select distinct post.post_uid  as post_uid, post.link as src, user_user_uid as user_uid, title,
                         ( select count(react) as good
                           from react
@@ -35,6 +36,7 @@
          join child_tag on child_tag.tag_name = post_tag.child_tag_name
         where child_tag.tag_name = #{child_tag}
         and parent_tag = #{parent_tag}
+        order by good
     </select>
 
     <select id="selectTag" parameterType="integer" resultType="string">

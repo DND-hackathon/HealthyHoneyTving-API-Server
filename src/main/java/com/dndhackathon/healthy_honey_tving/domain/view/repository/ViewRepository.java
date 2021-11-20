@@ -2,6 +2,7 @@ package com.dndhackathon.healthy_honey_tving.domain.view.repository;
 
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto;
+import com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.mapper.ViewMapper;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -20,12 +21,12 @@ public class ViewRepository implements ViewMapper {
         mapper = sqlSession.getMapper(ViewMapper.class);
     }
     @Override
-    public List<HashMap<String, Object>> selectGetAllPost(RequestAllPostDto dto) {
+    public List<ResponsePostDto> selectGetAllPost(RequestAllPostDto dto) {
         return mapper.selectGetAllPost(dto);
     }
 
     @Override
-    public List<HashMap<String, Object>> selectGetByTag(RequestPostByTagDto dto) {
+    public List<ResponsePostDto> selectGetByTag(RequestPostByTagDto dto) {
         return mapper.selectGetByTag(dto);
     }
 

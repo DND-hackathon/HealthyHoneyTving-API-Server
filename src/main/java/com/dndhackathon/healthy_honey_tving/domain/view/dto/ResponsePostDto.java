@@ -13,9 +13,12 @@ import java.util.List;
 @Getter
 @Setter
 public class ResponsePostDto {
-    private ParentTag parent_tag;
-    private String child_tag;
-    private int page;
-    private int size;
-    private List<PostEntity> postEntityList;
+    private int post_uid;
+    private int user_uid;
+    private String title;
+    private String src;
+    private List<String> child_tags;
+    private int bad;
+    private int good;
+
 }

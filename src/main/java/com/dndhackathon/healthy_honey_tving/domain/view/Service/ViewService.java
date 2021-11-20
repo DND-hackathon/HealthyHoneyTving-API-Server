@@ -1,5 +1,6 @@
 package com.dndhackathon.healthy_honey_tving.domain.view.Service;
 
+import com.dndhackathon.healthy_honey_tving.domain.view.dto.Response;
 import com.dndhackathon.healthy_honey_tving.domain.view.repository.ViewRepository;
 import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
 import com.dndhackathon.healthy_honey_tving.global.repository.PostRepository;
@@ -7,6 +8,7 @@ import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto;
 import com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto;
 import com.dndhackathon.healthy_honey_tving.global.entity.ChildTagEntity;
+import com.github.pagehelper.PageInfo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -26,9 +28,10 @@ public class ViewService {
     private final PostRepository postRepository;
     private final ViewRepository viewRepository;
 
-    public List<HashMap<String, Object>> PostAll(RequestAllPostDto dto){
-        List<HashMap<String, Object>> list =  viewRepository.selectGetAllPost(dto);
+    public List<ResponsePostDto> PostAll(RequestAllPostDto dto){
+        List<ResponsePostDto> list =  viewRepository.selectGetAllPost(dto);
         list = childTag(list);
+        return list;
 //        PageRequest pageRequest = PageRequest.of(dto.getPage(), dto.getSize());
 //        List<PostEntity> page = postRepository.findAllByChildTagEntitiesLike(new ChildTagEntity("", dto.getParent_tag()));
 //        return ResponsePostDto.builder()
@@ -36,12 +39,11 @@ public class ViewService {
 //                .page(dto.getPage())
 //                .size(dto.getSize())
 //                .postEntityList(page).build();
-        return list;
     }
-    public List<HashMap<String, Object>> PostTagAll(RequestPostByTagDto dto){
-        List<HashMap<String, Object>> list = viewRepository.selectGetByTag(dto);
+    public List<ResponsePostDto> PostTagAll(RequestPostByTagDto dto){
+        List<ResponsePostDto> list = viewRepository.selectGetByTag(dto);
         list = childTag(list);
-
+        return list;
 //        for(int i = 0 ; i < list.size(); i++){
 //            List<String> tag = viewRepository.selectTag(Integer.parseInt((String)list.get(i).get("post_uid").toString()));
 //        }
@@ -52,13 +54,12 @@ public class ViewService {
 //                .size(dto.getSize())
 //                .postEntityList(postRepository.findAllByChildTagEntitiesContains(new ChildTagEntity(dto.getChild_tag(), dto.getParent_tag()))).build();
 
-        return list;
     }
-    private List<HashMap<String,Object>> childTag (List<HashMap<String, Object>> list){
+    private List<ResponsePostDto> childTag (List<ResponsePostDto> list){
         for(int i = 0 ; i < list.size(); i++){
-            Integer data = Integer.parseInt(list.get(i).get("post_uid").toString());
+            Integer data = list.get(i).getPost_uid();
             List<String> tag = viewRepository.selectTag(data);
-            list.get(i).put("child_tags",tag);
+            list.get(i).setChild_tags(tag);
         }
         return list;
     }
