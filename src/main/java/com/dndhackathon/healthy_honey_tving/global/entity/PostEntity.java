@@ -43,15 +43,6 @@ public class PostEntity {
     @JoinColumn(name = "user_user_uid", nullable = false)
     private UserEntity author;
 
-    public PostEntity(long postUID, String title, String description, String url, List<ChildTagEntity> childTagEntities, Long userUID) {
-        this.postUID = postUID;
-        this.title = title;
-        this.description = description;
-        this.link = url;
-        this.childTagEntities = childTagEntities;
-        this.author = new UserEntity(userUID);
-    }
-
     public PostDto toDto() {
         return new PostDto(postUID,
                 title,
@@ -59,7 +50,8 @@ public class PostEntity {
                 description,
                 author.getUserUID(),
                 childTagEntities.get(0).getParentTag(),
-                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()));
+                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()),
+                createdAt, previewImageUrl);
     }
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
