@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,10 +24,12 @@ public class AddPostRequestDto {
     private Long userUID;
     private ParentTag parentTag;
     private List<String> childTags;
+    private long createdAt;
+    private String previewImageUrl;
 
     public @NonNull PostEntity toEntity() {
         return new PostEntity(-1L, title, description, url,
                 childTags.stream().map(s -> new ChildTagEntity(s, parentTag)).toList(),
-                new UserEntity(userUID));
+                new UserEntity(userUID), new Date(createdAt), previewImageUrl);
     }
 }

@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,21 +27,19 @@ public class PostEntity {
     @Column(name = "title")
     private String title;
 
+    @Column(name = "link")
+    private String link;
+
     @Column(name = "description")
     private String description;
 
-    @Column(name = "link")
-    @URL
-    private String link;
-
-
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "postTag",
-            joinColumns = @JoinColumn(name = "Post_UID", referencedColumnName = "Post_UID"),
-            inverseJoinColumns = @JoinColumn(name = "Child_tag_name", referencedColumnName = "tag_name"))
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    @JoinTable(name = "post_tag",
+            joinColumns = @JoinColumn(name = "post_entity_post_uid", referencedColumnName = "post_uid"),
+            inverseJoinColumns = @JoinColumn(name = "child_tag_entities_tag_name", referencedColumnName = "tag_name"))
     private List<ChildTagEntity> childTagEntities;
 
-    @ManyToOne(cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_user_uid", nullable = false)
     private UserEntity author;
 
@@ -51,6 +50,13 @@ public class PostEntity {
                 description,
                 author.getUserUID(),
                 childTagEntities.get(0).getParentTag(),
-                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()));
+                childTagEntities.stream().map(ChildTagEntity::toDto).collect(Collectors.toList()),
+                createdAt, previewImageUrl);
     }
+    @Column(name = "created_at", nullable = false)
+    private Date createdAt;
+
+    @Column(name = "preview_image_url")
+    @URL
+    private String previewImageUrl;
 }
