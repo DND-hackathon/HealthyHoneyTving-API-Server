@@ -9,7 +9,7 @@ import java.util.List;
 @Builder
 @Getter
 @Setter
-public class Response {
+public class ResponseViewDto {
     private int page;
     private int size;
     List<ResponsePostDto> responsePostDto;

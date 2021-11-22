@@ -1,15 +1,9 @@
 package com.dndhackathon.healthy_honey_tving.domain.react.dto;
 
-import com.dndhackathon.healthy_honey_tving.global.enum_type.React;
-import lombok.*;
+import com.dndhackathon.healthy_honey_tving.global.data.enum_type.React;
 
-@NoArgsConstructor
-@Builder
-@AllArgsConstructor
-@Getter
-@Setter
-public class ReactRequestDto {
-    private React react;
-    private Long postUID;
-    private Long userUID;
-}
+public record ReactRequestDto (
+        React react,
+        Long postUID,
+        Long userUID
+){ }

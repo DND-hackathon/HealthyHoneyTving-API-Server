@@ -1,4 +1,4 @@
-package com.dndhackathon.healthy_honey_tving.global.entity;
+package com.dndhackathon.healthy_honey_tving.global.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

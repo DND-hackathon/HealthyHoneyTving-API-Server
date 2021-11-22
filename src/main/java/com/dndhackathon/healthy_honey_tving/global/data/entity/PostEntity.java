@@ -1,6 +1,6 @@
-package com.dndhackathon.healthy_honey_tving.global.entity;
+package com.dndhackathon.healthy_honey_tving.global.data.entity;
 
-import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
+import com.dndhackathon.healthy_honey_tving.global.data.dto.PostDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,8 @@ import java.util.stream.Collectors;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostEntity {
+public class PostEntity implements ConvertableEntity<PostDto> {
+    public static long DEFAULT_ID = -1;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_uid", nullable = false)
@@ -50,6 +51,7 @@ public class PostEntity {
     @URL
     private String previewImageUrl;
 
+    @Override
     public PostDto toDto() {
         return new PostDto(postUID,
                 title,

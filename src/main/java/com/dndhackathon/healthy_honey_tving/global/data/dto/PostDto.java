@@ -1,6 +1,6 @@
-package com.dndhackathon.healthy_honey_tving.global.dto;
+package com.dndhackathon.healthy_honey_tving.global.data.dto;
 
-import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
+import com.dndhackathon.healthy_honey_tving.global.data.enum_type.ParentTag;
 import org.hibernate.validator.constraints.URL;
 
 import java.sql.Date;

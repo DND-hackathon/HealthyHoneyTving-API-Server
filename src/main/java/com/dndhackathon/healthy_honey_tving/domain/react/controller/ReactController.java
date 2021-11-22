@@ -13,11 +13,11 @@ public class ReactController {
 
     @PutMapping("/react")
     public void react(@RequestBody ReactRequestDto requestDto) {
-        reactService.addReact(requestDto);
+        reactService.add(requestDto);
     }
 
     @DeleteMapping("/react")
     public void unReact(@RequestBody ReactRequestDto requestDto) {
-        reactService.removeReact(requestDto);
+        reactService.remove(requestDto);
     }
 }

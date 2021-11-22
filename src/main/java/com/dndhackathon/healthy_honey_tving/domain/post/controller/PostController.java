@@ -3,7 +3,7 @@ package com.dndhackathon.healthy_honey_tving.domain.post.controller;
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.AddPostRequestDto;
 import com.dndhackathon.healthy_honey_tving.domain.post.dto.RemovePostRequestDto;
 import com.dndhackathon.healthy_honey_tving.domain.post.service.PostService;
-import com.dndhackathon.healthy_honey_tving.global.dto.PostDto;
+import com.dndhackathon.healthy_honey_tving.global.data.dto.PostDto;
 import com.dndhackathon.healthy_honey_tving.global.error.ErrorResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.PermissionDeniedDataAccessException;
@@ -18,16 +18,16 @@ public class PostController {
 
     @PutMapping("/post")
     public ResponseEntity<Long> post(@RequestBody AddPostRequestDto requestDto) {
-        long postUID = postService.addPost(requestDto);
+        long postUID = postService.addAndGetId(requestDto);
         return ResponseEntity.ok().body(postUID);
     }
 
     @DeleteMapping("/post")
     public ResponseEntity<Void> deletePost(@RequestBody RemovePostRequestDto requestDto) {
-        PostDto post = postService.getPost(requestDto.postUID());
+        PostDto post = postService.get(requestDto.postUID());
         if(post.userUID().longValue() != requestDto.userUID().longValue())
             throw new PermissionDeniedDataAccessException("게시글은 작성자만이 지울 수 있습니다.", null);
-        postService.removePost(requestDto.postUID());
+        postService.remove(requestDto.postUID());
         return ResponseEntity.noContent().build();
     }
 

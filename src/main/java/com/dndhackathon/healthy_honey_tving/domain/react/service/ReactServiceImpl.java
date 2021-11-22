@@ -6,12 +6,12 @@ import com.dndhackathon.healthy_honey_tving.domain.react.exception.AlreadyReacte
 import com.dndhackathon.healthy_honey_tving.domain.react.exception.DataNotFoundException;
 import com.dndhackathon.healthy_honey_tving.domain.react.exception.NotReactYetException;
 import com.dndhackathon.healthy_honey_tving.domain.react.repository.ReactRepository;
-import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
-import com.dndhackathon.healthy_honey_tving.global.entity.ReactEntity;
-import com.dndhackathon.healthy_honey_tving.global.entity.UserEntity;
-import com.dndhackathon.healthy_honey_tving.global.enum_type.React;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.PostEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.ReactEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.UserEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.enum_type.React;
 import com.dndhackathon.healthy_honey_tving.global.error.ErrorResponse;
-import com.dndhackathon.healthy_honey_tving.global.repository.PostRepository;
+import com.dndhackathon.healthy_honey_tving.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -29,33 +29,33 @@ public class ReactServiceImpl implements ReactService{
     private final ReactRepository reactRepository;
 
     @Override
-    public void addReact(ReactRequestDto requestDto) {
-        Optional<UserEntity> user = userRepository.findById(requestDto.getUserUID());
-        Optional<PostEntity> post = postRepository.findById(requestDto.getPostUID());
+    public void add(ReactRequestDto requestDto) {
+        Optional<UserEntity> user = userRepository.findById(requestDto.userUID());
+        Optional<PostEntity> post = postRepository.findById(requestDto.postUID());
 
-        if(user.isEmpty()) user = Optional.of(userRepository.save(new UserEntity(requestDto.getUserUID())));
+        if(user.isEmpty()) user = Optional.of(userRepository.save(new UserEntity(requestDto.userUID())));
 
         if(post.isEmpty()) throw new DataNotFoundException("데이터가 존재하지 않습니다! post 가 존재하지 않습니다!");
 
         if(reactRepository.existsAllByPostEntityAndUserEntity(post.get(), user.get())) {
-            if(reactRepository.existsAllByPostEntityAndUserEntityAndReact(post.get(), user.get(), requestDto.getReact()))
+            if(reactRepository.existsAllByPostEntityAndUserEntityAndReact(post.get(), user.get(), requestDto.react()))
                 throw new AlreadyReactedException(String.format("이미 %s를 누른 상태입니다.",
-                        requestDto.getReact().equals(React.BAD) ? "싫어요" : "좋아요"));
+                        requestDto.react().equals(React.BAD) ? "싫어요" : "좋아요"));
             else reactRepository.removeReactEntityByPostEntityAndUserEntity(post.get(), user.get());
         }
-        reactRepository.save(new ReactEntity(-1L, user.get(), post.get(), requestDto.getReact()));
+        reactRepository.save(new ReactEntity(-1L, user.get(), post.get(), requestDto.react()));
     }
 
     @Override
-    public void removeReact(ReactRequestDto requestDto) {
-        Optional<UserEntity> user = userRepository.findById(requestDto.getUserUID());
-        Optional<PostEntity> post = postRepository.findById(requestDto.getPostUID());
+    public void remove(ReactRequestDto requestDto) {
+        Optional<UserEntity> user = userRepository.findById(requestDto.userUID());
+        Optional<PostEntity> post = postRepository.findById(requestDto.postUID());
 
         if(user.isEmpty() || post.isEmpty()) throw new DataNotFoundException("잘못된 요청입니다. post 나 user 중 하나이상이 존재하지 않습니다!");
 
-        if(!reactRepository.existsAllByPostEntityAndUserEntityAndReact(post.get(), user.get(), requestDto.getReact()))
+        if(!reactRepository.existsAllByPostEntityAndUserEntityAndReact(post.get(), user.get(), requestDto.react()))
             throw new NotReactYetException(String.format("%s를 누르지 않은 상태입니다.",
-                    requestDto.getReact().equals(React.BAD) ? "싫어요" : "좋아요"));
+                    requestDto.react().equals(React.BAD) ? "싫어요" : "좋아요"));
 
         reactRepository.removeReactEntityByPostEntityAndUserEntity(post.get(), user.get());
     }

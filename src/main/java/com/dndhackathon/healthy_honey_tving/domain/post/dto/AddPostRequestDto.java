@@ -1,35 +1,33 @@
 package com.dndhackathon.healthy_honey_tving.domain.post.dto;
 
-import com.dndhackathon.healthy_honey_tving.global.dto.ChildTagDto;
-import com.dndhackathon.healthy_honey_tving.global.entity.ChildTagEntity;
-import com.dndhackathon.healthy_honey_tving.global.entity.PostEntity;
-import com.dndhackathon.healthy_honey_tving.global.entity.UserEntity;
-import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import lombok.*;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.ChildTagEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.PostEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.entity.UserEntity;
+import com.dndhackathon.healthy_honey_tving.global.data.enum_type.ParentTag;
 import org.hibernate.validator.constraints.URL;
 
 import java.sql.Date;
-import java.util.Arrays;
 import java.util.List;
 
+public record AddPostRequestDto (
+        String title,
+        String description,
+        @URL String url,
+        Long userUID,
+        ParentTag parentTag,
+        List<String> childTags,
+        long createdAt,
+        String previewImageUrl
+        ) {
+    public PostEntity toEntity() {
+        List<ChildTagEntity> childTagEntities =
+                childTags.stream().map(s -> new ChildTagEntity(s, parentTag)).toList();
+        UserEntity author = new UserEntity(userUID);
+        Date createdDate = new Date(createdAt);
 
-@Getter @Setter @Builder @NoArgsConstructor @AllArgsConstructor
-public class AddPostRequestDto {
-    private String title;
-    private String description;
-    @URL private String url;
-    private Long userUID;
-    private ParentTag parentTag;
-    private List<String> childTags;
-    private long createdAt;
-    private String previewImageUrl;
-
-    public @NonNull PostEntity toEntity() {
-        return new PostEntity(-1L, title, url, description,
-                childTags.stream().map(s -> new ChildTagEntity(s, parentTag)).toList(),
-                new UserEntity(userUID), new Date(createdAt), previewImageUrl);
+        return new PostEntity(
+                PostEntity.DEFAULT_ID, title, url, description,
+                childTagEntities, author, createdDate, previewImageUrl
+        );
     }
 }

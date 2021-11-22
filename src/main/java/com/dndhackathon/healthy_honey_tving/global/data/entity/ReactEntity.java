@@ -1,4 +1,4 @@
-package com.dndhackathon.healthy_honey_tving.global.entity;
+package com.dndhackathon.healthy_honey_tving.global.data.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +30,6 @@ public class ReactEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "react", nullable = false)
-    private com.dndhackathon.healthy_honey_tving.global.enum_type.React react;
+    private com.dndhackathon.healthy_honey_tving.global.data.enum_type.React react;
 
 }

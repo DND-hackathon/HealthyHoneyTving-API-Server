@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ErrorResponse {
     private final String message;
-    String doc;
+    private String doc;
     private final Code code;
 
     public enum Code {

@@ -1,7 +1,7 @@
-package com.dndhackathon.healthy_honey_tving.global.entity;
+package com.dndhackathon.healthy_honey_tving.global.data.entity;
 
-import com.dndhackathon.healthy_honey_tving.global.dto.ChildTagDto;
-import com.dndhackathon.healthy_honey_tving.global.enum_type.ParentTag;
+import com.dndhackathon.healthy_honey_tving.global.data.dto.ChildTagDto;
+import com.dndhackathon.healthy_honey_tving.global.data.enum_type.ParentTag;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ChildTagEntity {
+public class ChildTagEntity implements ConvertableEntity<ChildTagDto> {
     @Id
     @Column(name = "tag_name", nullable = false)
     private String tagName;
@@ -24,6 +24,7 @@ public class ChildTagEntity {
     @Column(name = "parent_tag", nullable = false)
     private ParentTag parentTag;
 
+    @Override
     public ChildTagDto toDto() {
         return new ChildTagDto(tagName, parentTag);
     }

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.dndhackathon.healthy_honey_tving.domain.view.mapper.ViewMapper">
 
-    <select id="selectGetAllPost" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestAllPostDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
+    <select id="selectGetAllPost" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestGetAllPostDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
         select distinct post.post_uid                                as post_uid,
                         post.link                                    as src,
                         user_user_uid                                as user_uid,
@@ -24,7 +24,7 @@
         order by good, created_at
     </select>
 
-    <select id="selectGetByTag" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestPostByTagDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
+    <select id="selectGetByTag" parameterType="com.dndhackathon.healthy_honey_tving.domain.view.dto.RequestGetPostByTagDto" resultType="com.dndhackathon.healthy_honey_tving.domain.view.dto.ResponsePostDto">
         select distinct post.post_uid                                as post_uid,
                         post.link                                    as src,
                         user_user_uid                                as user_uid,
